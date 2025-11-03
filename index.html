@@ -1,0 +1,1277 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DesignKu - Jasa Desain Profesional</title>
+    
+    <!-- Impor Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Impor Google Font (Inter) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Impor Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+
+    <style>
+        /* Menggunakan font Inter sebagai default */
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        /* Mencegah pergeseran tata letak saat scrollbar muncul */
+        html {
+            overflow-y: scroll;
+        }
+        /* Menyembunyikan halaman/konten secara default */
+        .page-content {
+            display: none;
+        }
+        /* Style untuk pre-wrap di modal detail */
+        .preserve-whitespace {
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-900">
+
+    <!-- ===== Notifikasi Global ===== -->
+    <div id="notification" class="fixed top-5 right-5 z-50 p-4 rounded-lg shadow-lg max-w-sm transition-transform translate-x-[150%] duration-300 ease-out">
+        <p id="notification-text"></p>
+    </div>
+
+    <!-- ===== Header & Navigasi ===== -->
+    <header class="bg-white shadow-sm sticky top-0 z-40">
+        <nav class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- Logo -->
+                <div class="flex-shrink-0 flex items-center">
+                    <a href="#" class="nav-link text-2xl font-bold text-blue-600" data-page="page-landing">
+                        DesignKu
+                    </a>
+                </div>
+                
+                <!-- Navigasi Desktop -->
+                <div id="desktop-nav-links" class="hidden sm:ml-6 sm:flex sm:space-x-8">
+                    <a href="#" class="nav-link inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700" data-page="page-landing">Beranda</a>
+                    <a href="#" class="nav-link inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700" data-page="page-order">Pesan Jasa</a>
+                    <a href="#" class="nav-link inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700" data-page="page-track">Lacak Pesanan</a>
+                </div>
+                
+                <!-- Tombol Login Admin (Desktop) -->
+                <div id="desktop-admin-button" class="hidden sm:ml-6 sm:flex sm:items-center">
+                    <button class="nav-link p-2 rounded-full text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500" data-page="page-login-admin">
+                        <i data-lucide="user-cog" class="h-6 w-6"></i>
+                    </button>
+                </div>
+
+                <!-- Tombol Menu Mobile -->
+                <div id="mobile-menu-toggle" class="-mr-2 flex items-center sm:hidden">
+                    <button id="mobile-menu-button" type="button" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-blue-500" aria-controls="mobile-menu" aria-expanded="false">
+                        <span class="sr-only">Buka menu utama</span>
+                        <i id="mobile-menu-icon-open" data-lucide="menu" class="block h-6 w-6"></i>
+                        <i id="mobile-menu-icon-close" data-lucide="x" class="hidden h-6 w-6"></i>
+                    </button>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Menu Mobile -->
+        <div class="sm:hidden hidden" id="mobile-menu">
+            <div class="pt-2 pb-3 space-y-1">
+                <a href="#" class="nav-link block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-gray-600 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-800" data-page="page-landing">Beranda</a>
+                <a href="#" class="nav-link block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-gray-600 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-800" data-page="page-order">Pesan Jasa</a>
+                <a href="#" class="nav-link block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-gray-600 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-800" data-page="page-track">Lacak Pesanan</a>
+                <a href="#" class="nav-link block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-gray-600 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-800" data-page="page-login-admin">Login Admin</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- ===== Konten Utama ===== -->
+    <main class="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
+
+        <!-- ===== Halaman 1: Beranda (Landing Page) ===== -->
+        <div id="page-landing" class="page-content space-y-12">
+            <!-- Hero Section -->
+            <section class="bg-white p-8 rounded-lg shadow-sm text-center">
+                <h1 class="text-4xl font-bold text-gray-900 mb-4">Wujudkan Ide Desain Anda Bersama Kami</h1>
+                <p class="text-xl text-gray-600 mb-8">Jasa desain logo, banner, dan sosial media profesional dengan harga terjangkau.</p>
+                <button class="nav-link bg-blue-600 text-white font-semibold py-3 px-8 rounded-lg hover:bg-blue-700 transition duration-300" data-page="page-order">
+                    Pesan Sekarang
+                </button>
+            </section>
+
+            <!-- Layanan Kami -->
+            <section>
+                <h2 class="text-3xl font-bold text-center mb-8">Layanan Kami</h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <!-- Kartu Layanan 1 -->
+                    <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
+                        <i data-lucide="palette" class="h-12 w-12 text-blue-600 mb-4"></i>
+                        <h3 class="text-xl font-semibold mb-2">Desain Logo</h3>
+                        <p class="text-gray-600">Ciptakan identitas brand yang kuat dan mudah diingat dengan desain logo eksklusif dari kami.</p>
+                    </div>
+                    <!-- Kartu Layanan 2 -->
+                    <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
+                        <i data-lucide="figma" class="h-12 w-12 text-blue-600 mb-4"></i>
+                        <h3 class="text-xl font-semibold mb-2">Desain UI/UX</h3>
+                        <p class="text-gray-600">Desain antarmuka yang intuitif dan pengalaman pengguna yang memuaskan untuk aplikasi web atau mobile Anda.</p>
+                    </div>
+                    <!-- Kartu Layanan 3 -->
+                    <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
+                        <i data-lucide="image" class="h-12 w-12 text-blue-600 mb-4"></i>
+                        <h3 class="text-xl font-semibold mb-2">Desain Konten Sosmed</h3>
+                        <p class="text-gray-600">Tingkatkan engagement dengan desain feed, story, dan iklan yang menarik untuk media sosial Anda.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Ulasan Pelanggan (Statis) -->
+            <section>
+                <h2 class="text-3xl font-bold text-center mb-8">Apa Kata Mereka?</h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <!-- Ulasan 1 -->
+                    <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
+                        <p class="text-gray-600 italic mb-4">"Pelayanannya cepat dan hasilnya memuaskan! Desain logonya persis seperti yang saya bayangkan. Terima kasih DesignKu."</p>
+                        <p class="font-semibold text-gray-900">- Budi Santoso</p>
+                        <p class="text-sm text-gray-500">CEO, Maju Jaya</p>
+                    </div>
+                    <!-- Ulasan 2 -->
+                    <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
+                        <p class="text-gray-600 italic mb-4">"Desain konten sosmednya keren-keren, engagement kami jadi naik. Proses revisinya juga gampang dan sabar."</p>
+                        <p class="font-semibold text-gray-900">- Citra Lestari</p>
+                        <p class="text-sm text-gray-500">Owner, Kopi Senja</p>
+                    </div>
+                    <!-- Ulasan 3 -->
+                    <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
+                        <p class="text-gray-600 italic mb-4">"Pilihan terbaik untuk desain UI/UX. Aplikasinya jadi lebih user-friendly dan modern. Sangat direkomendasikan!"</p>
+                        <p class="font-semibold text-gray-900">- Rian Aditama</p>
+                        <p class="text-sm text-gray-500">Startup Founder</p>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- ===== Halaman 2: Pemesanan Jasa ===== -->
+        <div id="page-order" class="page-content">
+            <div class="max-w-2xl mx-auto bg-white p-8 rounded-lg shadow-sm border border-gray-200">
+                <h2 class="text-3xl font-bold text-center mb-8">Formulir Pemesanan Jasa</h2>
+                <form id="order-form" class="space-y-6">
+                    <!-- Nama Lengkap -->
+                    <div>
+                        <label for="order-name" class="block text-sm font-medium text-gray-700 mb-1">Nama Lengkap</label>
+                        <input type="text" id="order-name" name="order-name" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none" placeholder="Masukkan nama lengkap Anda" required>
+                    </div>
+
+                    <!-- Nomor WhatsApp -->
+                    <div>
+                        <label for="order-phone" class="block text-sm font-medium text-gray-700 mb-1">Nomor WhatsApp (Format: 628...)</label>
+                        <input type="tel" id="order-phone" name="order-phone" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none" placeholder="Contoh: 6281234567890" pattern="^628[0-9]{8,13}$" required>
+                        <p class="text-xs text-gray-500 mt-1">Pastikan diawali dengan 62 dan tanpa spasi atau tanda (+).</p>
+                    </div>
+
+                    <!-- Jenis Jasa -->
+                    <div>
+                        <label for="order-service" class="block text-sm font-medium text-gray-700 mb-1">Pilih Jasa Desain</label>
+                        <select id="order-service" name="order-service" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none" required>
+                            <option value="" disabled selected>-- Pilih salah satu jasa --</option>
+                            <option value="Desain Logo">Desain Logo</option>
+                            <option value="Desain UI/UX">Desain UI/UX</option>
+                            <option value="Desain Konten Sosmed">Desain Konten Sosmed</option>
+                            <option value="Desain Banner/Spanduk">Desain Banner/Spanduk</option>
+                            <option value="Lainnya">Lainnya</option>
+                        </select>
+                    </div>
+
+                    <!-- Deskripsi Kebutuhan -->
+                    <div>
+                        <label for="order-description" class="block text-sm font-medium text-gray-700 mb-1">Deskripsi Kebutuhan</label>
+                        <textarea id="order-description" name="order-description" rows="4" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none" placeholder="Jelaskan kebutuhan desain Anda sedetail mungkin..." required></textarea>
+                    </div>
+
+                    <!-- Tombol Submit -->
+                    <div>
+                        <button type="submit" class="w-full bg-blue-600 text-white font-semibold py-3 px-5 rounded-lg hover:bg-blue-700 transition duration-300">
+                            Kirim Pesanan
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- ===== Halaman 3: Lacak Pesanan ===== -->
+        <div id="page-track" class="page-content">
+            <div class="max-w-2xl mx-auto">
+                <!-- Form Pencarian -->
+                <div class="bg-white p-8 rounded-lg shadow-sm border border-gray-200">
+                    <h2 class="text-3xl font-bold text-center mb-8">Lacak Status Pesanan Anda</h2>
+                    <form id="track-order-form" class="flex items-center space-x-3">
+                        <input type="text" id="track-order-id" class="flex-grow w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none" placeholder="Masukkan ID Pesanan Anda..." required>
+                        <button type="submit" class="bg-blue-600 text-white font-semibold py-3 px-5 rounded-lg hover:bg-blue-700 transition duration-300">
+                            <i data-lucide="search" class="h-5 w-5"></i>
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Hasil Pelacakan -->
+                <div id="track-result-container" class="mt-8 bg-white p-8 rounded-lg shadow-sm border border-gray-200 hidden">
+                    <h3 class="text-2xl font-bold mb-6">Hasil Pelacakan</h3>
+                    
+                    <!-- Info Pesanan -->
+                    <div class="mb-6 space-y-2">
+                        <p class="text-gray-700"><strong>ID Pesanan:</strong> <span id="track-result-id"></span></p>
+                        <p class="text-gray-700"><strong>Nama:</strong> <span id="track-result-name"></span></p>
+                        <p class="text-gray-700"><strong>Jasa:</strong> <span id="track-result-service"></span></p>
+                    </div>
+
+                    <!-- Info Desainer -->
+                    <div id="track-designer-info" class="mb-6 p-4 bg-gray-100 rounded-lg border border-gray-200 hidden">
+                        <p class="text-gray-700 mb-3">Pesanan Anda sedang dikerjakan oleh:</p>
+                        <p class="text-lg font-semibold text-gray-900" id="track-designer-name"></p>
+                        <a id="track-designer-wa-link" href="#" target="_blank" class="mt-3 inline-flex items-center bg-green-500 text-white font-semibold py-2 px-4 rounded-lg hover:bg-green-600 transition duration-300">
+                            <i data-lucide="message-circle" class="h-5 w-5 mr-2"></i> Hubungi Desainer
+                        </a>
+                    </div>
+
+                    <!-- Status Terakhir -->
+                    <div class="mb-6">
+                        <h4 class="text-lg font-semibold text-gray-800 mb-3">Status Terakhir</h4>
+                        <div id="track-latest-status" class="bg-blue-50 border border-blue-200 text-blue-800 p-4 rounded-lg">
+                            <!-- Status diisi oleh JS -->
+                        </div>
+                    </div>
+
+                    <!-- Riwayat Status -->
+                    <div>
+                        <h4 class="text-lg font-semibold text-gray-800 mb-3">Riwayat Status</h4>
+                        <ol id="track-status-history" class="relative border-l border-gray-300 space-y-6 ml-2">
+                            <!-- Riwayat diisi oleh JS -->
+                        </ol>
+                    </div>
+
+                    <!-- Formulir Ulasan -->
+                    <div id="track-review-container" class="mt-8 pt-6 border-t border-gray-200 hidden">
+                        <h3 class="text-xl font-semibold text-gray-800 mb-4">Berikan Ulasan Anda</h3>
+                        <form id="review-form">
+                            <input type="hidden" id="review-order-id">
+                            <div class="mb-4">
+                                <label for="review-text" class="block text-sm font-medium text-gray-700 mb-1">Ulasan Anda</label>
+                                <textarea id="review-text" rows="4" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none" placeholder="Bagaimana pengalaman Anda dengan jasa kami?" required></textarea>
+                            </div>
+                            <button type="submit" class="w-full bg-blue-600 text-white font-semibold py-3 px-5 rounded-lg hover:bg-blue-700 transition duration-300">
+                                Kirim Ulasan
+                            </button>
+                        </form>
+                    </div>
+
+                    <!-- Ulasan yang Sudah Ada -->
+                    <div id="track-existing-review" class="mt-8 pt-6 border-t border-gray-200 hidden">
+                        <h3 class="text-xl font-semibold text-gray-800 mb-3">Ulasan Anda</h3>
+                        <div class="bg-gray-100 p-4 rounded-lg border border-gray-200">
+                            <p class="text-gray-700 italic" id="existing-review-text"></p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Pesanan Tidak Ditemukan -->
+                <div id="track-not-found" class="mt-8 bg-white p-8 rounded-lg shadow-sm border border-gray-200 text-center hidden">
+                    <i data-lucide="file-x" class="h-12 w-12 text-red-500 mx-auto mb-4"></i>
+                    <h3 class="text-xl font-semibold text-red-700">Pesanan Tidak Ditemukan</h3>
+                    <p class="text-gray-600 mt-2">ID Pesanan yang Anda masukkan salah atau tidak terdaftar.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== Halaman 4: Login Admin ===== -->
+        <div id="page-login-admin" class="page-content">
+            <div class="max-w-md mx-auto bg-white p-8 rounded-lg shadow-sm border border-gray-200">
+                <h2 class="text-3xl font-bold text-center mb-8">Login Dashboard Admin</h2>
+                <form id="login-admin-form" class="space-y-6">
+                    <div>
+                        <label for="admin-username" class="block text-sm font-medium text-gray-700 mb-1">Username</label>
+                        <input type="text" id="admin-username" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none" required>
+                    </div>
+                    <div>
+                        <label for="admin-password" class="block text-sm font-medium text-gray-700 mb-1">Password</label>
+                        <input type="password" id="admin-password" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none" required>
+                    </div>
+                    <div>
+                        <button type="submit" class="w-full bg-gray-800 text-white font-semibold py-3 px-5 rounded-lg hover:bg-gray-900 transition duration-300">
+                            Login
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- ===== Halaman 5: Dashboard Admin ===== -->
+        <div id="page-admin" class="page-content">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-3xl font-bold">Dashboard Admin Pesanan</h2>
+                <div>
+                    <button id="admin-refresh-button" class="bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg hover:bg-blue-700 transition duration-300 mr-2">
+                        <i data-lucide="refresh-cw" class="h-5 w-5 inline-block mr-1"></i> Refresh
+                    </button>
+                    <button id="admin-logout-button" class="bg-red-600 text-white font-semibold py-2 px-4 rounded-lg hover:bg-red-700 transition duration-300">
+                        <i data-lucide="log-out" class="h-5 w-5 inline-block mr-1"></i> Logout
+                    </button>
+                </div>
+            </div>
+
+            <!-- Tabel Pesanan -->
+            <div class="bg-white shadow-sm border border-gray-200 rounded-lg overflow-hidden">
+                <div class="overflow-x-auto">
+                    <table id="orders-table" class="min-w-full divide-y divide-gray-200">
+                        <thead class="bg-gray-100">
+                            <tr>
+                                <th class="py-3 px-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">ID Pesanan</th>
+                                <th class="py-3 px-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Nama</th>
+                                <th class="py-3 px-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">No. WhatsApp</th>
+                                <th class="py-3 px-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Jasa</th>
+                                <!-- [BARU] Kolom Desainer -->
+                                <th class="py-3 px-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Desainer</th>
+                                <th class="py-3 px-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Status Terakhir</th>
+                                <th class="py-3 px-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Ulasan/Review</th>
+                                <th class="py-3 px-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Detail Pesanan</th>
+                                <th class="py-3 px-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody id="orders-table-body" class="bg-white divide-y divide-gray-200">
+                            <!-- Data diisi oleh JS -->
+                            <tr>
+                                <!-- [DIUBAH] Colspan disesuaikan -->
+                                <td colspan="9" class="py-6 px-4 text-center text-gray-500">
+                                    <i data-lucide="loader-2" class="h-8 w-8 animate-spin mx-auto mb-2"></i>
+                                    Memuat data pesanan...
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </main>
+    
+    <!-- ===== Footer ===== -->
+    <footer class="bg-white border-t border-gray-200 mt-12 py-8">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 text-center text-gray-500">
+            <p>&copy; 2024 DesignKu. Semua Hak Cipta Dilindungi.</p>
+        </div>
+    </footer>
+
+
+    <!-- =================================================================== -->
+    <!-- ===== MODAL ===== -->
+    <!-- =================================================================== -->
+
+    <!-- ===== Modal: Sukses Pesan ===== -->
+    <div id="order-success-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 hidden">
+        <div class="bg-white p-8 rounded-lg shadow-2xl max-w-md w-full m-4 text-center">
+            <i data-lucide="check-circle" class="h-16 w-16 text-green-500 mx-auto mb-4"></i>
+            <h2 class="text-2xl font-bold mb-4">Pesanan Berhasil Dibuat!</h2>
+            <p class="text-gray-600 mb-6">Silakan simpan ID Pesanan Anda untuk melacak status pengerjaan.</p>
+            <div class="bg-gray-100 p-4 rounded-lg border border-gray-200 mb-6">
+                <p class="text-lg font-semibold text-gray-800">ID Pesanan Anda:</p>
+                <p id="order-success-id" class="text-2xl font-bold text-blue-600 break-words"></p>
+            </div>
+            <button id="order-success-close" class="w-full bg-blue-600 text-white font-semibold py-3 px-5 rounded-lg hover:bg-blue-700 transition duration-300">
+                Lacak Pesanan Saya
+            </button>
+        </div>
+    </div>
+
+    <!-- ===== Modal: Admin Update Status ===== -->
+    <div id="admin-status-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 hidden">
+        <div class="bg-white p-8 rounded-lg shadow-2xl max-w-lg w-full m-4">
+            <h2 class="text-2xl font-bold mb-6">Update Status Pesanan</h2>
+            <form id="admin-status-form">
+                <input type="hidden" id="admin-status-order-id">
+                <div class="mb-4">
+                    <p><strong>ID Pesanan:</strong> <span id="admin-status-order-id-display"></span></p>
+                    <p><strong>Nama:</strong> <span id="admin-status-order-name"></span></p>
+                </div>
+                <div class="mb-6">
+                    <label for="admin-new-status" class="block text-sm font-medium text-gray-700 mb-1">Status Baru</label>
+                    <select id="admin-new-status" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none" required>
+                        <option value="" disabled selected>-- Pilih status baru --</option>
+                        <option value="Desain Sedang Diproses">Desain Sedang Diproses</option>
+                        <option value="Desain Sedang Direview">Desain Sedang Direview</option>
+                        <option value="Desain Sedang Direvisi,Tunggu Hingga Waktu Yang Sudah Disepakati">Desain Sedang Direvisi,Tunggu Hingga Waktu Yang Sudah Disepakati</option>
+                        <option value="Desain Sudah Selesai,Silahkan Lakukan Pembayaran Untuk Mendapatkan File Asli">Desain Sudah Selesai,Silahkan Lakukan Pembayaran Untuk Mendapatkan File Asli</option>
+                        <option value="Pembayaran dan Desain Sudah Selesai,Ulasan Kamu Sangat Berarti Bagi Kami">Pembayaran dan Desain Sudah Selesai,Ulasan Kamu Sangat Berarti Bagi Kami</option>
+                    </select>
+                </div>
+                <div class="flex justify-end space-x-3">
+                    <button type="button" id="admin-status-cancel" class="bg-gray-300 text-gray-800 font-semibold py-2 px-5 rounded-lg hover:bg-gray-400 transition duration-300">
+                        Batal
+                    </button>
+                    <button type="submit" class="bg-blue-600 text-white font-semibold py-2 px-5 rounded-lg hover:bg-blue-700 transition duration-300">
+                        Update Status
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <!-- ===== Modal: Admin Ambil Order ===== -->
+    <div id="admin-take-order-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 hidden">
+        <div class="bg-white p-8 rounded-lg shadow-2xl max-w-lg w-full m-4">
+            <h2 class="text-2xl font-bold mb-6">Ambil Pesanan</h2>
+            <form id="admin-take-order-form" class="space-y-4">
+                <input type="hidden" id="admin-take-order-id">
+                
+                <div class="mb-4">
+                    <p><strong>ID Pesanan:</strong> <span id="admin-take-order-id-display"></span></p>
+                    <p><strong>Nama Pelanggan:</strong> <span id="admin-take-order-name"></span></p>
+                </div>
+
+                <!-- Input Nama Desainer -->
+                <div>
+                    <label for="admin-designer-name" class="block text-sm font-medium text-gray-700 mb-1">Nama Desainer</label>
+                    <input type="text" id="admin-designer-name" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none" placeholder="Masukkan nama desainer yang mengambil" required>
+                </div>
+                
+                <!-- Input WA Desainer -->
+                <div>
+                    <label for="admin-designer-phone" class="block text-sm font-medium text-gray-700 mb-1">Nomor WA Desainer (Format: 628...)</label>
+                    <input type="tel" id="admin-designer-phone" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none" placeholder="Contoh: 6281234567890" pattern="^628[0-9]{8,13}$" required>
+                    <p class="text-xs text-gray-500 mt-1">Nomor ini akan diberikan ke pelanggan.</p>
+                </div>
+
+                <div class="flex justify-end space-x-3 pt-4">
+                    <button type="button" id="admin-take-order-cancel" class="bg-gray-300 text-gray-800 font-semibold py-2 px-5 rounded-lg hover:bg-gray-400 transition duration-300">
+                        Batal
+                    </button>
+                    <button type="submit" class="bg-green-600 text-white font-semibold py-2 px-5 rounded-lg hover:bg-green-700 transition duration-300">
+                        Ambil Pesanan
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <!-- ===== Modal: Admin Hapus Pesanan ===== -->
+    <div id="admin-delete-confirm-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 hidden">
+        <div class="bg-white p-8 rounded-lg shadow-2xl max-w-lg w-full m-4">
+            <h2 class="text-2xl font-bold mb-4">Hapus Pesanan</h2>
+            <input type="hidden" id="admin-delete-order-id">
+            <p class="text-gray-700 mb-6">Anda yakin ingin menghapus pesanan ini secara permanen? Tindakan ini tidak dapat dibatalkan.</p>
+            <div class="flex justify-end space-x-3">
+                <button type="button" id="admin-delete-cancel" class="bg-gray-300 text-gray-800 font-semibold py-2 px-5 rounded-lg hover:bg-gray-400 transition duration-300">
+                    Batal
+                </button>
+                <button type="button" id="admin-delete-confirm" class="bg-red-600 text-white font-semibold py-2 px-5 rounded-lg hover:bg-red-700 transition duration-300">
+                    Ya, Hapus
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- ===== Modal: Admin Detail Pesanan ===== -->
+    <div id="admin-detail-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 hidden">
+        <div class="bg-white p-8 rounded-lg shadow-2xl max-w-lg w-full m-4 max-h-[90vh] overflow-y-auto">
+            <h2 class="text-2xl font-bold mb-6">Detail Pesanan</h2>
+            
+            <div class="space-y-3">
+                <p><strong>ID Pesanan:</strong> <span id="admin-detail-id" class="font-mono"></span></p>
+                <p><strong>Nama Pelanggan:</strong> <span id="admin-detail-name"></span></p>
+                <p><strong>No. WhatsApp:</strong> <span id="admin-detail-phone"></span></p>
+                <p><strong>Jasa:</strong> <span id="admin-detail-service"></span></p>
+                
+                <div class="pt-2">
+                    <p class="font-semibold"><strong>Deskripsi Kebutuhan:</strong></p>
+                    <div class="mt-2 p-4 bg-gray-100 border border-gray-200 rounded-lg max-h-60 overflow-y-auto">
+                        <pre id="admin-detail-description" class="text-gray-700 preserve-whitespace"></pre>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex justify-end mt-6">
+                <button type="button" id="admin-detail-close" class="bg-gray-300 text-gray-800 font-semibold py-2 px-5 rounded-lg hover:bg-gray-400 transition duration-300">
+                    Tutup
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- ===== [BARU] Modal: Admin Lihat Ulasan ===== -->
+    <div id="admin-review-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 hidden">
+        <div class="bg-white p-8 rounded-lg shadow-2xl max-w-lg w-full m-4 max-h-[90vh] overflow-y-auto">
+            <h2 class="text-2xl font-bold mb-6">Detail Ulasan Pelanggan</h2>
+            
+            <div class="space-y-3">
+                <p><strong>ID Pesanan:</strong> <span id="admin-review-order-id" class="font-mono"></span></p>
+                <p><strong>Nama Pelanggan:</strong> <span id="admin-review-name"></span></p>
+                
+                <div class="pt-2">
+                    <p class="font-semibold"><strong>Ulasan:</strong></p>
+                    <div class="mt-2 p-4 bg-gray-100 border border-gray-200 rounded-lg max-h-60 overflow-y-auto">
+                        <pre id="admin-review-text" class="text-gray-700 preserve-whitespace"></pre>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex justify-end mt-6">
+                <button type="button" id="admin-review-close" class="bg-gray-300 text-gray-800 font-semibold py-2 px-5 rounded-lg hover:bg-gray-400 transition duration-300">
+                    Tutup
+                </button>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- =================================================================== -->
+    <!-- ===== JAVASCRIPT ===== -->
+    <!-- =================================================================== -->
+    <script>
+        // Inisialisasi Lucide Icons
+        lucide.createIcons();
+
+        // Kunci untuk localStorage
+        const ORDERS_KEY = 'designku_orders';
+        const ADMIN_SESSION_KEY = 'designku_admin_session';
+        
+        // Status awal pesanan
+        const INITIAL_STATUS = "Orderan Sudah Masuk..Menunggu Diproses Oleh Desainer";
+
+        // =================================================
+        // Utility Functions
+        // =================================================
+
+        /**
+         * Utility function untuk meng-escape HTML.
+         * Mencegah XSS jika pengguna memasukkan HTML.
+         */
+        const escapeHTML = (str) => {
+            if (!str) return '';
+            return str.replace(/[&<>"']/g, (match) => ({
+                '&': '&amp;',
+                '<': '&lt;',
+                '>': '&gt;',
+                '"': '&quot;',
+                "'": '&#39;'
+            })[match]);
+        };
+
+        /**
+         * Menampilkan atau menyembunyikan halaman berdasarkan ID.
+         * @param {string} pageId - ID dari div halaman yang ingin ditampilkan.
+         */
+        function showPage(pageId) {
+            // [BARU] Ambil elemen navigasi
+            const desktopNav = document.getElementById('desktop-nav-links');
+            const mobileToggle = document.getElementById('mobile-menu-toggle');
+            const desktopAdminBtn = document.getElementById('desktop-admin-button');
+
+            if (pageId === 'page-admin' || pageId === 'page-login-admin') {
+                // Sembunyikan navigasi utama saat di halaman admin atau login admin
+                desktopNav.classList.add('hidden');
+                mobileToggle.classList.add('hidden');
+                desktopAdminBtn.classList.add('hidden');
+            } else {
+                // Tampilkan navigasi utama di halaman lain
+                desktopNav.classList.remove('hidden');
+                mobileToggle.classList.remove('hidden');
+                desktopAdminBtn.classList.remove('hidden');
+            }
+            
+            // Sembunyikan semua halaman
+            document.querySelectorAll('.page-content').forEach(page => {
+                page.style.display = 'none';
+            });
+
+            // Tampilkan halaman yang diminta
+            const targetPage = document.getElementById(pageId);
+            if (targetPage) {
+                targetPage.style.display = 'block';
+            }
+            
+            // Tutup menu mobile jika terbuka
+            document.getElementById('mobile-menu').classList.add('hidden');
+            document.getElementById('mobile-menu-icon-open').classList.remove('hidden');
+            document.getElementById('mobile-menu-icon-close').classList.add('hidden');
+            
+            // Gulir ke atas halaman
+            window.scrollTo(0, 0);
+
+            // Jika halaman admin yang dituju, periksa sesi dan muat data
+            if (pageId === 'page-admin') {
+                if (isAdminLoggedIn()) {
+                    fetchOrdersAdmin();
+                } else {
+                    showPage('page-login-admin'); // Redirect ke login jika belum login
+                }
+            }
+        }
+
+        /**
+         * Menampilkan notifikasi global.
+         * @param {string} message - Pesan notifikasi.
+         * @param {'success' | 'error'} type - Tipe notifikasi.
+         */
+        function showNotification(message, type = 'success') {
+            const notification = document.getElementById('notification');
+            const text = document.getElementById('notification-text');
+            
+            text.textContent = message;
+            
+            // Hapus kelas warna sebelumnya
+            notification.classList.remove('bg-green-500', 'bg-red-500', 'text-white');
+
+            // Tambah kelas warna berdasarkan tipe
+            if (type === 'success') {
+                notification.classList.add('bg-green-500', 'text-white');
+            } else {
+                notification.classList.add('bg-red-500', 'text-white');
+            }
+
+            // Tampilkan notifikasi
+            notification.classList.remove('translate-x-[150%]');
+            
+            // Sembunyikan setelah 3 detik
+            setTimeout(() => {
+                notification.classList.add('translate-x-[150%]');
+            }, 3000);
+        }
+
+        /**
+         * Mengambil semua pesanan dari localStorage.
+         * @returns {Array} Array pesanan.
+         */
+        function getOrders() {
+            return JSON.parse(localStorage.getItem(ORDERS_KEY)) || [];
+        }
+
+        /**
+         * Menyimpan array pesanan ke localStorage.
+         * @param {Array} orders - Array pesanan yang ingin disimpan.
+         */
+        function saveOrders(orders) {
+            localStorage.setItem(ORDERS_KEY, JSON.stringify(orders));
+        }
+
+        /**
+         * Menghasilkan ID Pesanan unik (contoh sederhana).
+         * @returns {string} ID Pesanan unik.
+         */
+        function generateOrderId() {
+            return 'DK-' + Date.now().toString().slice(-6) + Math.random().toString().slice(2, 5).toUpperCase();
+        }
+        
+        /**
+         * Mengatur tampilan modal (buka/tutup).
+         * @param {string} modalId - ID dari modal.
+         * @param {boolean} show - true untuk menampilkan, false untuk menyembunyikan.
+         */
+        function toggleModal(modalId, show) {
+            const modal = document.getElementById(modalId);
+            if (show) {
+                modal.classList.remove('hidden');
+            } else {
+                modal.classList.add('hidden');
+            }
+        }
+
+        /**
+         * Mendapatkan warna status untuk tabel admin.
+         * @param {string} status - Teks status.
+         * @returns {string} Kelas warna Tailwind.
+         */
+        function getStatusColor(status) {
+            if (status.includes("Selesai,Ulasan")) {
+                return 'bg-green-100 text-green-800';
+            }
+            if (status.includes("Pembayaran Untuk Mendapatkan File")) {
+                return 'bg-yellow-100 text-yellow-800';
+            }
+            if (status.includes("Diproses") || status.includes("Direview") || status.includes("Direvisi")) {
+                return 'bg-blue-100 text-blue-800';
+            }
+            if (status.includes("Diambil Oleh Desainer")) {
+                return 'bg-indigo-100 text-indigo-800';
+            }
+            return 'bg-gray-100 text-gray-800';
+        }
+
+        /**
+         * Mengecek apakah admin sudah login.
+         * @returns {boolean} true jika sudah login, false jika belum.
+         */
+        function isAdminLoggedIn() {
+            return localStorage.getItem(ADMIN_SESSION_KEY) === 'true';
+        }
+
+        // =================================================
+        // Handler Logika Halaman
+        // =================================================
+
+        /**
+         * Handler untuk submit formulir pemesanan.
+         * @param {Event} event - Event submit.
+         */
+        function handleOrderSubmit(event) {
+            event.preventDefault();
+            
+            const name = document.getElementById('order-name').value;
+            const phone = document.getElementById('order-phone').value;
+            const service = document.getElementById('order-service').value;
+            const description = document.getElementById('order-description').value;
+            const orderId = generateOrderId();
+            
+            const newOrder = {
+                orderId: orderId,
+                name: name,
+                phone: phone,
+                service: service,
+                description: description,
+                review: null, 
+                designerName: null, 
+                designerPhone: null, 
+                statusHistory: [
+                    {
+                        status: INITIAL_STATUS,
+                        timestamp: new Date().toISOString()
+                    }
+                ]
+            };
+            
+            try {
+                let orders = getOrders();
+                orders.push(newOrder);
+                saveOrders(orders);
+                
+                // Reset form
+                document.getElementById('order-form').reset();
+                
+                // Tampilkan modal sukses
+                document.getElementById('order-success-id').textContent = newOrder.orderId;
+                toggleModal('order-success-modal', true);
+                
+                // Salin ID ke clipboard
+                navigator.clipboard.writeText(newOrder.orderId).then(() => {
+                    showNotification('ID Pesanan disalin ke clipboard!', 'success');
+                }).catch(err => {
+                    console.error('Gagal menyalin ID:', err);
+                    showNotification('Pesanan berhasil! Gagal menyalin ID.', 'error');
+                });
+
+            } catch (error) {
+                console.error('Error saving order:', error);
+                showNotification('Gagal menyimpan pesanan. Coba lagi.', 'error');
+            }
+        }
+
+        /**
+         * Handler untuk submit formulir pelacakan pesanan.
+         * @param {Event} event - Event submit.
+         */
+        function handleTrackOrder(event) {
+            event.preventDefault();
+            
+            const orderIdToTrack = document.getElementById('track-order-id').value;
+            const orders = getOrders();
+            const order = orders.find(o => o.orderId === orderIdToTrack);
+
+            const resultContainer = document.getElementById('track-result-container');
+            const notFoundContainer = document.getElementById('track-not-found');
+            
+            // Ambil elemen ulasan
+            const reviewFormContainer = document.getElementById('track-review-container');
+            const existingReviewContainer = document.getElementById('track-existing-review');
+            const existingReviewText = document.getElementById('existing-review-text');
+            const reviewOrderIdInput = document.getElementById('review-order-id');
+
+            // Ambil elemen desainer
+            const designerInfoContainer = document.getElementById('track-designer-info');
+            const designerNameEl = document.getElementById('track-designer-name');
+            const designerWaLinkEl = document.getElementById('track-designer-wa-link');
+
+            // Selalu sembunyikan container ulasan & desainer saat pencarian baru
+            reviewFormContainer.classList.add('hidden');
+            existingReviewContainer.classList.add('hidden');
+            designerInfoContainer.classList.add('hidden');
+
+            if (order) {
+                // Tampilkan Info Dasar
+                document.getElementById('track-result-id').textContent = order.orderId;
+                document.getElementById('track-result-name').textContent = order.name;
+                document.getElementById('track-result-service').textContent = order.service;
+                
+                // Tampilkan Status Terakhir
+                const latestStatus = order.statusHistory[order.statusHistory.length - 1];
+                document.getElementById('track-latest-status').innerHTML = `
+                    <p class="font-semibold">${latestStatus.status}</p>
+                    <p class="text-sm mt-1">${new Date(latestStatus.timestamp).toLocaleString('id-ID')}</p>
+                `;
+
+                // Tampilkan Riwayat Status
+                const historyContainer = document.getElementById('track-status-history');
+                historyContainer.innerHTML = ''; // Kosongkan riwayat sebelumnya
+                
+                order.statusHistory.slice().reverse().forEach((historyItem, index) => {
+                    const isFirst = index === 0;
+
+                    historyContainer.innerHTML += `
+                        <li class="ml-4">
+                            <div class="absolute w-3 h-3 ${isFirst ? 'bg-blue-600' : 'bg-gray-400'} rounded-full mt-1.5 -left-1.5 border border-white"></div>
+                            <time class="mb-1 text-sm font-normal leading-none text-gray-500">${new Date(historyItem.timestamp).toLocaleString('id-ID')}</time>
+                            <h3 class="text-lg font-semibold ${isFirst ? 'text-gray-900' : 'text-gray-700'}">${historyItem.status}</h3>
+                        </li>
+                    `;
+                });
+
+                // Tampilkan Kontainer Hasil, Sembunyikan 'Not Found'
+                resultContainer.classList.remove('hidden');
+                notFoundContainer.classList.add('hidden');
+                
+                // --- Cek Info Desainer ---
+                if (order.designerName && order.designerPhone) {
+                    designerNameEl.textContent = order.designerName;
+                    
+                    // Buat template WA
+                    const waTemplate = `Halo Kak ${order.designerName}, Saya ${order.name} dengan nomor order ${order.orderId} ingin konfirmasi terkait detail desain, bisa kita diskusi?`;
+                    const waUrl = `https://api.whatsapp.com/send?phone=${order.designerPhone}&text=${encodeURIComponent(waTemplate)}`;
+                    
+                    designerWaLinkEl.href = waUrl;
+                    designerInfoContainer.classList.remove('hidden');
+                }
+                
+                // --- Logika Cek Status untuk Ulasan ---
+                if (latestStatus.status === "Pembayaran dan Desain Sudah Selesai,Ulasan Kamu Sangat Berarti Bagi Kami") {
+                    if (order.review) {
+                        // Jika sudah ada ulasan, tampilkan ulasannya
+                        existingReviewText.textContent = `"${order.review}"`;
+                        existingReviewContainer.classList.remove('hidden');
+                        reviewFormContainer.classList.add('hidden');
+                    } else {
+                        // Jika belum ada ulasan, tampilkan formulir
+                        reviewOrderIdInput.value = order.orderId;
+                        document.getElementById('review-text').value = ''; // Kosongkan textarea
+                        reviewFormContainer.classList.remove('hidden');
+                        existingReviewContainer.classList.add('hidden');
+                    }
+                }
+
+            } else {
+                // Sembunyikan Kontainer Hasil, Tampilkan 'Not Found'
+                resultContainer.classList.add('hidden');
+                notFoundContainer.classList.remove('hidden');
+            }
+        }
+        
+        /**
+         * Handler untuk submit formulir ulasan.
+         * @param {Event} event - Event submit.
+         */
+        function handleReviewSubmit(event) {
+            event.preventDefault();
+            const orderId = document.getElementById('review-order-id').value;
+            const reviewText = document.getElementById('review-text').value;
+
+            if (!reviewText.trim()) {
+                showNotification('Ulasan tidak boleh kosong.', 'error');
+                return;
+            }
+
+            try {
+                let orders = getOrders();
+                const orderIndex = orders.findIndex(o => o.orderId === orderId);
+
+                if (orderIndex !== -1) {
+                    // Simpan ulasan ke objek pesanan
+                    orders[orderIndex].review = reviewText;
+                    saveOrders(orders);
+                    
+                    showNotification('Terima kasih atas ulasan Anda!', 'success');
+                    
+                    // Sembunyikan form dan tampilkan ulasan yang baru disubmit
+                    document.getElementById('track-review-container').classList.add('hidden');
+                    document.getElementById('existing-review-text').textContent = `"${reviewText}"`;
+                    document.getElementById('track-existing-review').classList.remove('hidden');
+                } else {
+                    showNotification('Gagal menemukan pesanan untuk disimpan.', 'error');
+                }
+            } catch (error) {
+                console.error('Error submitting review:', error);
+                showNotification('Terjadi kesalahan saat mengirim ulasan.', 'error');
+            }
+        }
+
+        /**
+         * Handler untuk submit formulir login admin.
+         * @param {Event} event - Event submit.
+         */
+        function handleAdminLogin(event) {
+            event.preventDefault();
+            const username = document.getElementById('admin-username').value;
+            const password = document.getElementById('admin-password').value;
+            
+            // Logika login sederhana (hardcoded)
+            if (username === 'admin' && password === 'admin123') {
+                localStorage.setItem(ADMIN_SESSION_KEY, 'true');
+                showPage('page-admin');
+                showNotification('Login berhasil. Selamat datang, Admin!', 'success');
+            } else {
+                showNotification('Username atau password salah.', 'error');
+            }
+        }
+        
+        /**
+         * Handler untuk logout admin.
+         */
+        function handleAdminLogout() {
+            localStorage.removeItem(ADMIN_SESSION_KEY);
+            showPage('page-login-admin');
+            showNotification('Anda telah logout.', 'success');
+        }
+
+        /**
+         * Memuat data pesanan ke tabel admin.
+         */
+        function fetchOrdersAdmin() {
+            if (!isAdminLoggedIn()) {
+                showPage('page-login-admin');
+                return;
+            }
+
+            const tableBody = document.getElementById('orders-table-body');
+            const orders = getOrders();
+
+            if (orders.length === 0) {
+                tableBody.innerHTML = `
+                    <tr>
+                        <td colspan="9" class="py-6 px-4 text-center text-gray-500">
+                            Belum ada pesanan yang masuk.
+                        </td>
+                    </tr>
+                `;
+                return;
+            }
+
+            // [DIMODIFIKASI] Tambahkan logika untuk tombol ulasan
+            tableBody.innerHTML = orders.map(order => {
+                const latestStatus = order.statusHistory[order.statusHistory.length - 1];
+                
+                // [BARU] Logika untuk Kolom Ulasan
+                let reviewCellContent = '-';
+                if (order.review) {
+                    reviewCellContent = `
+                        <button class="admin-action-review text-xs bg-gray-500 text-white py-1 px-2 rounded hover:bg-gray-600" data-id="${order.orderId}">
+                            Lihat Ulasan
+                        </button>
+                    `;
+                }
+
+                // [BARU] Logika untuk Kolom Desainer
+                const designerName = order.designerName || '-';
+
+                // Tentukan tombol aksi berdasarkan status
+                let actionButtons = '';
+                if (latestStatus.status === INITIAL_STATUS) {
+                    actionButtons = `
+                        <button class="admin-action-take text-xs bg-green-500 text-white py-1 px-2 rounded hover:bg-green-600" data-id="${order.orderId}">Ambil</button>
+                    `;
+                } else if (!latestStatus.status.includes("Selesai,Ulasan")) {
+                     actionButtons = `
+                        <button class="admin-action-status text-xs bg-blue-500 text-white py-1 px-2 rounded hover:bg-blue-600" data-id="${order.orderId}">Update Status</button>
+                    `;
+                }
+                
+                // Tombol Hapus selalu ada
+                actionButtons += `
+                    <button class="admin-action-delete text-xs bg-red-500 text-white py-1 px-2 rounded hover:bg-red-600 ml-1" data-id="${order.orderId}">Hapus</button>
+                `;
+                
+                // Tombol WhatsApp (Aksi API)
+                const waMessage = `Halo ${escapeHTML(order.name)}, update untuk pesanan ID ${escapeHTML(order.orderId)}: \n\n*${escapeHTML(latestStatus.status)}*. \n\nTerima kasih!`;
+                const waLink = `https://api.whatsapp.com/send?phone=${order.phone}&text=${encodeURIComponent(waMessage)}`;
+
+                return `
+                    <tr class="hover:bg-gray-50">
+                        <td class="py-3 px-4 text-sm text-gray-700 font-mono">${escapeHTML(order.orderId)}</td>
+                        <td class="py-3 px-4 text-sm text-gray-700">${escapeHTML(order.name)}</td>
+                        <td class="py-3 px-4 text-sm text-gray-700">
+                            <a href="${waLink}" target="_blank" class="text-green-600 hover:text-green-800 hover:underline" title="Kirim Notifikasi WA">
+                                ${escapeHTML(order.phone)} <i data-lucide="send" class="h-3 w-3 inline-block"></i>
+                            </a>
+                        </td>
+                        <td class="py-3 px-4 text-sm text-gray-700">${escapeHTML(order.service)}</td>
+                        <!-- [BARU] Kolom Data Desainer -->
+                        <td class="py-3 px-4 text-sm text-gray-700">${escapeHTML(designerName)}</td>
+                        <td class="py-3 px-4 text-sm text-gray-700">
+                            <span class="px-2 py-1 text-xs font-medium rounded-full ${getStatusColor(latestStatus.status)}">
+                                ${escapeHTML(latestStatus.status)}
+                            </span>
+                        </td>
+                        <!-- [DIUBAH] Kolom Data Ulasan -->
+                        <td class="py-3 px-4 text-sm text-gray-700">
+                            ${reviewCellContent}
+                        </td>
+                        <!-- Kolom Detail -->
+                        <td class="py-3 px-4 text-sm text-gray-700">
+                            <button class="admin-action-detail text-xs bg-gray-500 text-white py-1 px-2 rounded hover:bg-gray-600" data-id="${order.orderId}">Lihat</button>
+                        </td>
+                        <td class="py-3 px-4 text-sm text-gray-700 space-x-1">
+                            ${actionButtons}
+                        </td>
+                    </tr>
+                `;
+            }).join('');
+            
+            // Re-inisialisasi Lucide icons setelah innerHTML diubah
+            lucide.createIcons();
+        }
+
+        /**
+         * Handler untuk klik tombol aksi di tabel admin.
+         * @param {Event} event - Event klik.
+         */
+        function handleAdminActions(event) {
+            const target = event.target.closest('button'); // Pastikan target adalah tombol
+            if (!target) return;
+            
+            const orderId = target.dataset.id;
+            if (!orderId) return; // Klik di luar tombol
+            
+            const orders = getOrders();
+            const order = orders.find(o => o.orderId === orderId);
+            if (!order) return;
+            
+            // Ambil Pesanan
+            if (target.classList.contains('admin-action-take')) {
+                document.getElementById('admin-take-order-id').value = orderId;
+                document.getElementById('admin-take-order-id-display').textContent = orderId;
+                document.getElementById('admin-take-order-name').textContent = order.name;
+                // Reset form
+                document.getElementById('admin-designer-name').value = '';
+                document.getElementById('admin-designer-phone').value = '';
+                toggleModal('admin-take-order-modal', true);
+            }
+            
+            // Update Status
+            if (target.classList.contains('admin-action-status')) {
+                document.getElementById('admin-status-order-id').value = orderId;
+                document.getElementById('admin-status-order-id-display').textContent = orderId;
+                document.getElementById('admin-status-order-name').textContent = order.name;
+                document.getElementById('admin-new-status').value = ''; // Reset dropdown
+                toggleModal('admin-status-modal', true);
+            }
+            
+            // Hapus Pesanan
+            if (target.classList.contains('admin-action-delete')) {
+                document.getElementById('admin-delete-order-id').value = orderId;
+                toggleModal('admin-delete-confirm-modal', true);
+            }
+            
+            // Lihat Detail Pesanan
+            if (target.classList.contains('admin-action-detail')) {
+                document.getElementById('admin-detail-id').textContent = order.orderId;
+                document.getElementById('admin-detail-name').textContent = order.name;
+                document.getElementById('admin-detail-phone').textContent = order.phone;
+                document.getElementById('admin-detail-service').textContent = order.service;
+                document.getElementById('admin-detail-description').textContent = order.description;
+                toggleModal('admin-detail-modal', true);
+            }
+            
+            // [BARU] Lihat Detail Ulasan
+            if (target.classList.contains('admin-action-review')) {
+                document.getElementById('admin-review-order-id').textContent = order.orderId;
+                document.getElementById('admin-review-name').textContent = order.name;
+                document.getElementById('admin-review-text').textContent = order.review; // review text
+                toggleModal('admin-review-modal', true);
+            }
+        }
+        
+        /**
+         * Handler untuk konfirmasi ambil pesanan.
+         * @param {Event} event - Event submit.
+         */
+        function handleTakeOrder(event) {
+            event.preventDefault();
+            const orderId = document.getElementById('admin-take-order-id').value;
+            const designerName = document.getElementById('admin-designer-name').value;
+            const designerPhone = document.getElementById('admin-designer-phone').value;
+            
+            if (!designerName.trim() || !designerPhone.trim()) {
+                showNotification('Nama Desainer dan Nomor WA tidak boleh kosong.', 'error');
+                return;
+            }
+            
+            try {
+                let orders = getOrders();
+                const orderIndex = orders.findIndex(o => o.orderId === orderId);
+                
+                if (orderIndex !== -1) {
+                    const newStatus = "Pesanan Sudah Diambil Oleh Desainer,Anda Akan Segera Dihubungi";
+                    orders[orderIndex].statusHistory.push({
+                        status: newStatus,
+                        timestamp: new Date().toISOString()
+                    });
+                    
+                    orders[orderIndex].designerName = designerName;
+                    orders[orderIndex].designerPhone = designerPhone;
+                    
+                    saveOrders(orders);
+                    
+                    showNotification('Pesanan berhasil diambil!', 'success');
+                    fetchOrdersAdmin(); // Muat ulang tabel
+                } else {
+                    showNotification('Pesanan tidak ditemukan.', 'error');
+                }
+            } catch (error) {
+                console.error('Error taking order:', error);
+                showNotification('Gagal mengambil pesanan.', 'error');
+            }
+            
+            toggleModal('admin-take-order-modal', false);
+        }
+        
+        /**
+         * Handler untuk konfirmasi update status.
+         * @param {Event} event - Event submit.
+         */
+        function handleStatusUpdate(event) {
+            event.preventDefault();
+            const orderId = document.getElementById('admin-status-order-id').value;
+            const newStatus = document.getElementById('admin-new-status').value;
+            
+            if (!newStatus) {
+                showNotification('Silakan pilih status baru.', 'error');
+                return;
+            }
+            
+            try {
+                let orders = getOrders();
+                const orderIndex = orders.findIndex(o => o.orderId === orderId);
+                
+                if (orderIndex !== -1) {
+                    orders[orderIndex].statusHistory.push({
+                        status: newStatus,
+                        timestamp: new Date().toISOString()
+                    });
+                    saveOrders(orders);
+
+                    showNotification('Status pesanan berhasil diperbarui!', 'success');
+                    fetchOrdersAdmin(); // Muat ulang tabel
+                } else {
+                    showNotification('Pesanan tidak ditemukan.', 'error');
+                }
+            } catch (error) {
+                console.error('Error updating status:', error);
+                showNotification('Gagal memperbarui status.', 'error');
+            }
+            
+            toggleModal('admin-status-modal', false);
+        }
+        
+        /**
+         * Handler untuk konfirmasi hapus pesanan.
+         */
+        function handleDeleteConfirm() {
+            const orderId = document.getElementById('admin-delete-order-id').value;
+            
+            try {
+                let orders = getOrders();
+                const updatedOrders = orders.filter(o => o.orderId !== orderId);
+                saveOrders(updatedOrders);
+                
+                showNotification('Pesanan berhasil dihapus!', 'success');
+                fetchOrdersAdmin(); // Muat ulang tabel
+            } catch (error) {
+                console.error('Error deleting order:', error);
+                showNotification('Gagal menghapus pesanan.', 'error');
+            }
+            
+            toggleModal('admin-delete-confirm-modal', false);
+        }
+
+
+        // =================================================
+        // Event Listeners
+        // =================================================
+
+        document.addEventListener('DOMContentLoaded', () => {
+            // Tampilkan halaman awal (Beranda)
+            showPage('page-landing');
+            
+            // Navigasi
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const page = e.currentTarget.dataset.page;
+                    showPage(page);
+                });
+            });
+
+            // Toggle Menu Mobile
+            document.getElementById('mobile-menu-button').addEventListener('click', () => {
+                const menu = document.getElementById('mobile-menu');
+                const iconOpen = document.getElementById('mobile-menu-icon-open');
+                const iconClose = document.getElementById('mobile-menu-icon-close');
+                
+                menu.classList.toggle('hidden');
+                iconOpen.classList.toggle('hidden');
+                iconClose.classList.toggle('hidden');
+            });
+            
+            // Form Submit: Pemesanan
+            document.getElementById('order-form').addEventListener('submit', handleOrderSubmit);
+            
+            // Form Submit: Lacak Pesanan
+            document.getElementById('track-order-form').addEventListener('submit', handleTrackOrder);
+            
+            // Form Submit: Ulasan
+            document.getElementById('review-form').addEventListener('submit', handleReviewSubmit);
+
+            // Form Submit: Login Admin
+            document.getElementById('login-admin-form').addEventListener('submit', handleAdminLogin);
+            
+            // Tombol Logout Admin
+            document.getElementById('admin-logout-button').addEventListener('click', handleAdminLogout);
+            
+            // Tombol Refresh Admin
+            document.getElementById('admin-refresh-button').addEventListener('click', fetchOrdersAdmin);
+            
+            // Dashboard Actions (menggunakan event delegation)
+            document.getElementById('orders-table-body').addEventListener('click', handleAdminActions);
+            
+            // Modal: Order Success
+            document.getElementById('order-success-close').addEventListener('click', () => {
+                toggleModal('order-success-modal', false);
+                // Arahkan ke halaman pelacakan dan isi ID-nya
+                const orderId = document.getElementById('order-success-id').textContent;
+                document.getElementById('track-order-id').value = orderId;
+                showPage('page-track');
+                // Langsung trigger pencarian
+                handleTrackOrder({ preventDefault: () => {} });
+            });
+
+            // Modal: Admin Status
+            document.getElementById('admin-status-form').addEventListener('submit', handleStatusUpdate);
+            document.getElementById('admin-status-cancel').addEventListener('click', () => toggleModal('admin-status-modal', false));
+            
+            // Modal: Admin Take Order
+            document.getElementById('admin-take-order-form').addEventListener('submit', handleTakeOrder);
+            document.getElementById('admin-take-order-cancel').addEventListener('click', () => toggleModal('admin-take-order-modal', false));
+            
+            // Modal: Admin Delete
+            document.getElementById('admin-delete-confirm').addEventListener('click', handleDeleteConfirm);
+            document.getElementById('admin-delete-cancel').addEventListener('click', () => toggleModal('admin-delete-confirm-modal', false));
+            
+            // Modal: Admin Detail
+            document.getElementById('admin-detail-close').addEventListener('click', () => toggleModal('admin-detail-modal', false));
+            
+            // [BARU] Modal: Admin Review
+            document.getElementById('admin-review-close').addEventListener('click', () => toggleModal('admin-review-modal', false));
+        });
+
+    </script>
+</body>
+</html>
+
+
+
